@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Banking System</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h2>🏦 Online Banking System</h2>
+        <div class="user">Logged in as: <b>Admin</b></div>
+    </div>
+
+    <div class="container">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>Navigation</h3>
+            <div class="menu">
+                <a href="#" class="nav-link active" data-page="dashboard">Dashboard</a>
+                <a href="#" class="nav-link" data-page="users">Users</a>
+                <a href="#" class="nav-link" data-page="accounts">Accounts</a>
+                <a href="#" class="nav-link" data-page="transactions">Transactions</a>
+                <a href="#" class="nav-link" data-page="audit">Audit Logs</a>
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+
+            <!-- Dashboard Page -->
+            <section id="page-dashboard" class="page active">
+                <div class="cards">
+                    <div class="card">
+                        <h4>Total Users</h4>
+                        <div class="value" id="totalUsers">0</div>
+                    </div>
+
+                    <div class="card">
+                        <h4>Total Accounts</h4>
+                        <div class="value" id="totalAccounts">0</div>
+                    </div>
+
+                    <div class="card">
+                        <h4>Total Transactions</h4>
+                        <div class="value" id="totalTransactions">0</div>
+                    </div>
+
+                    <div class="card">
+                        <h4>Total Balance</h4>
+                        <div class="value" id="totalBalance">₹ 0</div>
+                    </div>
+                </div>
+
+                <div class="forms">
+                    <div class="form-box">
+                        <h3>💰 Deposit</h3>
+                        <input id="depositAcc" placeholder="Account Number" />
+                        <input id="depositAmt" type="number" placeholder="Amount" />
+                        <button id="depositBtn">Deposit</button>
+                    </div>
+
+                    <div class="form-box">
+                        <h3>🏧 Withdraw</h3>
+                        <input id="withdrawAcc" placeholder="Account Number" />
+                        <input id="withdrawAmt" type="number" placeholder="Amount" />
+                        <button id="withdrawBtn">Withdraw</button>
+                    </div>
+
+                    <div class="form-box">
+                        <h3>🔁 Transfer</h3>
+                        <input id="fromAcc" placeholder="From Account" />
+                        <input id="toAcc" placeholder="To Account" />
+                        <input id="transferAmt" type="number" placeholder="Amount" />
+                        <button id="transferBtn">Transfer</button>
+                    </div>
+                </div>
+
+                <div class="table-box">
+                    <h3>📌 Recent Transactions</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="txnTableRecent"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Users Page -->
+            <section id="page-users" class="page">
+                <div class="split">
+                    <div class="form-box">
+                        <h3>👤 Create New Customer</h3>
+                        <input id="customerName" placeholder="Full Name" />
+                        <input id="customerEmail" type="email" placeholder="Email" />
+                        <input id="customerPassword" type="password" placeholder="Temporary Password (optional)" />
+                        <select id="customerRole">
+                            <option value="CUSTOMER" selected>Customer</option>
+                            <option value="ADMIN">Admin</option>
+                            <option value="TELLER">Teller</option>
+                        </select>
+                        <button id="createCustomerBtn">Create Customer</button>
+                        <div id="createCustomerMsg" class="helper-text"></div>
+                    </div>
+
+                    <div class="table-box">
+                        <div class="table-header">
+                            <h3>📋 Users</h3>
+                            <button id="refreshUsersBtn" class="btn-secondary">Refresh</button>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Created</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Accounts Page -->
+            <section id="page-accounts" class="page">
+                <div class="table-box">
+                    <div class="table-header">
+                        <h3>🏦 Accounts</h3>
+                        <button id="resequenceAccountsBtn" class="btn-secondary">Resequence</button>
+                        <button id="refreshAccountsBtn" class="btn-secondary">Refresh</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Account Number</th>
+                                <th>Balance</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                            </tr>
+                        </thead>
+                        <tbody id="accountsTable"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Transactions Page -->
+            <section id="page-transactions" class="page">
+                <div class="table-box">
+                    <div class="table-header">
+                        <h3>💳 Transactions</h3>
+                        <button id="refreshTransactionsBtn" class="btn-secondary">Refresh</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="txnTableAll"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Audit Logs Page -->
+            <section id="page-audit" class="page">
+                <div class="table-box">
+                    <div class="table-header">
+                        <h3>🧾 Audit Logs</h3>
+                        <button id="refreshAuditBtn" class="btn-secondary">Refresh</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Action</th>
+                                <th>IP</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="auditTable"></tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
